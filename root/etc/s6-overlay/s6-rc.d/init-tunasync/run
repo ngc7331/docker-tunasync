@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+
+mkdir -p /data/tunasync /data/tunasync/mirror
+mkdir -p /config/tunasync
+mkdir -p /tmp/tunasync /tmp/tunasync/worker /tmp/tunasync/worker/log
+
+if [ ! -f /config/tunasync/worker.conf ]; then
+  echo "Creating worker.conf from template"
+  cp /etc/tunasync/worker.conf.template /config/tunasync/worker.conf
+fi
+
+if [ ! -f /config/tunasync/manager.conf ]; then
+  echo "Creating manager.conf from template"
+  cp /etc/tunasync/manager.conf.template /config/tunasync/manager.conf
+fi
+
+lsiown -R abc:abc /data
+lsiown -R abc:abc /config
+lsiown -R abc:abc /tmp/tunasync

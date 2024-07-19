@@ -1,0 +1,6 @@
+[submodule "tunasync"]
+	path = tunasync
+	url = https://github.com/tuna/tunasync.git
+[submodule "tunasync-scripts"]
+	path = tunasync-scripts
+	url = https://github.com/tuna/tunasync-scripts
