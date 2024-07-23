@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv bash
 
 s6-setuidgid abc \
-  cd /data/tunasync/mirror python3 -m http.server ${HTTP_PORT}
+  cd /data/tunasync/mirror python3 -m http.server -b :: ${HTTP_PORT}
