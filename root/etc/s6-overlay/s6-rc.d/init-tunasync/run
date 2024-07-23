@@ -14,6 +14,14 @@ if [ ! -f /config/tunasync/manager.conf ]; then
   cp /etc/tunasync/manager.conf.template /config/tunasync/manager.conf
 fi
 
+if [ ! -f /config/tunasync/ctl.conf ]; then
+  echo "Creating ctl.conf from template"
+  cp /etc/tunasync/ctl.conf.template /config/tunasync/ctl.conf
+fi
+
+echo "Creating symlink for ctl.conf"
+ln -sf /config/tunasync/ctl.conf /etc/tunasync/ctl.conf
+
 lsiown -R abc:abc /data
 lsiown -R abc:abc /config
 lsiown -R abc:abc /tmp/tunasync
