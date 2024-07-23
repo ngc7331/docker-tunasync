@@ -32,3 +32,23 @@ ssl_key = ""
 # upstream = "rsync://archive.ubuntu.com/ubuntu/"
 # rsync_options = [ "--delete-excluded" ]
 # memory_limit = "256M"
+#
+# [[mirrors]]
+# name = "tailscale"
+# provider = "command"
+# command = "/etc/tunasync/scripts/tailscale.sh"
+# upstream = "https://pkgs.tailscale.com"
+# memory_limit = "256M"
+# size_pattern = "(?:\\d+) packages, (\\d+) bytes in total"
+#
+# Also refer to: https://github.com/tuna/tunasync/blob/master/docs/zh_CN/workers.conf
+# Note "/home/scripts" in that file should be replaced by "/etc/tunasync/scripts"
+# For example, https://github.com/tuna/tunasync/blob/938f67c7b40ba7340d0f72d74f6928a15eb52b34/docs/zh_CN/workers.conf#L55-L62 should be:
+# [[mirrors]]
+# name = "anaconda"
+# provider = "command"
+# upstream = "https://repo.continuum.io/"
+# command = "/etc/tunasync/scripts/anaconda.py --delete"
+# size_pattern = "Total size is ([0-9\\.]+[KMGTP]?)"
+# interval = 720
+#
