@@ -1,12 +1,13 @@
 # Build tunasync
-FROM --platform=${TARGETPLATFORM} golang:latest AS build
+FROM golang:alpine AS build
 ARG TARGETARCH
-COPY ./tunasync /tmp/tunasync
-RUN cd /tmp/tunasync && \
+COPY . /tmp
+RUN apk add make git && \
+    cd /tmp/tunasync && \
     make ARCH=linux-${TARGETARCH}
 
 # Build image
-FROM --platform=${TARGETPLATFORM} lscr.io/linuxserver/baseimage-ubuntu:jammy
+FROM ghcr.io/ngc7331/linuxserver-baseimage-alpine:3.21
 ARG TARGETARCH
 
 # Install tunasync
@@ -14,12 +15,14 @@ COPY --from=build /tmp/tunasync/build-linux-${TARGETARCH}/tunasync /bin/tunasync
 COPY --from=build /tmp/tunasync/build-linux-${TARGETARCH}/tunasynctl /bin/tunasynctl
 
 # Install sync tools
-RUN apt update && \
-    apt install -y --no-install-recommends \
-        rsync ftpsync \
-        python3 python3-pyquery python3-socks python3-requests python3-yaml \
-        && \
-    apt clean
+RUN apk add --no-cache \
+      xz patch unzip jq ack \
+      wget curl rsync git lftp aria2 \
+      python3 py3-requests py3-yaml py3-pip \
+      && \
+    python3 -m pip install --no-cache-dir --break-system-packages \
+      pyquery \
+      pytz
 COPY ./tunasync-scripts /etc/tunasync/scripts
 COPY ./custom-scripts /etc/tunasync/scripts
 
