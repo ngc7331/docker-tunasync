@@ -18,7 +18,7 @@ COPY --from=build /tmp/tunasync/build-linux-${TARGETARCH}/tunasynctl /bin/tunasy
 RUN apk add --no-cache \
       xz patch unzip jq ack \
       wget curl rsync git lftp aria2 \
-      python3 py3-requests py3-yaml py3-pip \
+      python3 py3-requests py3-yaml py3-pip py3-lxml \
       && \
     python3 -m pip install --no-cache-dir --break-system-packages \
       pyquery \
