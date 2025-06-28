@@ -7,7 +7,7 @@ RUN apk add make git && \
     make ARCH=linux-${TARGETARCH}
 
 # Build image
-FROM ghcr.io/ngc7331/linuxserver-baseimage-alpine:3.21
+FROM ghcr.io/linuxserver/baseimage-alpine:3.22
 ARG TARGETARCH
 
 # Install tunasync
